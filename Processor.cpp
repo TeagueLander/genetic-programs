@@ -2,27 +2,36 @@
 
 #include "Processor.h"
 
-class Processor {
-	public:
-		Process(int pc) {
-			this -> pc = pc;
-		}
-		int getPC() {
-			return pc;
-		}
-	private:
-		std::stack<uint8_t>		stack1;
-		std::stack<uint8_t>		stack2;
-		int						pc; //Program Counter
-};
 
-int main(int argc, char *argv[]) {
-	//Processor process (32);
-	
-	printByte(OUT);
+
+
+
+//Processor
+Processor::Processor() {
+	pc = 0;
+}
+Processor::Processor(int pc) {
+	this->pc = pc;
+}
+Processor::getPC() {
+	return pc;
 }
 
 void printByte(uint8_t byte) {
 	bitset<8> x(byte);
-	cout << x;
+	cout << x << endl;
+}
+void printIntAsByte(int num) {
+	bitset<8> a(num>>24);
+	bitset<8> b(num>>16);
+	bitset<8> c(num>>8);
+	bitset<8> d(num);
+	cout << a << " " << b << " " << c << " " << d << endl;
+}
+
+int main(int argc, char *argv[]) {
+	Processor processor(257);
+	
+	printByte(processor.getPC());
+	printIntAsByte(257);
 }

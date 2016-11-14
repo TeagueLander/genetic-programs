@@ -24,4 +24,16 @@ using namespace std;
 //Input output
 #define OUT		0b1100
 
+class Processor {
+	public:
+		Processor();
+		Processor(int pc);
+		getPC();
+	private:
+		stack<uint8_t>		stack1;
+		stack<uint8_t>		stack2;
+		int					pc;
+};
+
 void printByte(uint8_t byte);
+void printIntAsByte(int num);

@@ -7,6 +7,7 @@
 #include <bitset>
 using namespace std;
 
+/* LANGUAGE */
 //Math operations
 #define NOP		0b0000
 #define ADD		0b0001
@@ -28,7 +29,11 @@ class Processor {
 	public:
 		Processor();
 		Processor(int pc);
-		getPC();
+		int getPC();
+		pushStack1(uint8_t byte);
+		uint8_t popStack1();
+		pushStack2(uint8_t byte);
+		uint8_t popStack2();
 	private:
 		stack<uint8_t>		stack1;
 		stack<uint8_t>		stack2;

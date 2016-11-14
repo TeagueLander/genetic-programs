@@ -10,14 +10,21 @@
 Processor::Processor() {
 	pc = 0;
 }
+//remove this
 Processor::Processor(int pc) {
 	this->pc = pc;
 }
 Processor::getPC() {
 	return pc;
 }
+void Processor::performOperation(uint8_t *seq) {
+	printByte(seq[0]);
+	printByte(seq[1]);
+	printByte(seq[2]);
+	printByte(seq[3]);
+}
 
-Processor::pushStack1(uint8_t byte) {
+void Processor::pushStack1(uint8_t byte) {
 	stack1.push(byte);
 }
 uint8_t Processor::popStack1() {
@@ -28,12 +35,12 @@ uint8_t Processor::popStack1() {
 	}
 	return 0; //should throw exception instead
 }
-Processor::emptyStack1() {
+void Processor::emptyStack1() {
 	stack<uint8_t> empty;
 	swap(stack1, empty);
 }
 
-Processor::pushStack2(uint8_t byte) {
+void Processor::pushStack2(uint8_t byte) {
 	stack2.push(byte);
 }
 uint8_t Processor::popStack2() {
@@ -44,7 +51,7 @@ uint8_t Processor::popStack2() {
 	}
 	return 0; //should throw exception instead
 }
-Processor::emptyStack2() {
+void Processor::emptyStack2() {
 	stack<uint8_t> empty;
 	swap(stack2, empty);
 }
@@ -63,14 +70,19 @@ void printIntAsByte(int num) {
 
 //For testing
 int main(int argc, char *argv[]) {
-	Processor processor(257);
-	// printByte(processor.getPC());
-	// printIntAsByte(257);
+	Processor processor;
 	
-	processor.pushStack1(0b001);
-	processor.pushStack1(0b011);
-	printByte(processor.popStack1());
-	processor.emptyStack1();
-	printByte(processor.popStack1());
-	
+	uint8_t *seq = new uint8_t[4];
+	uint8_t *point;
+	point = seq;
+	*point = ADD;
+	point++;
+	*point = ADD;
+	point++;
+	*point = ADD;
+	point++;
+	*point = ADD;
+	point++;
+	processor.performOperation(seq);
+
 }

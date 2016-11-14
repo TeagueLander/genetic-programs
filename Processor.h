@@ -30,10 +30,14 @@ class Processor {
 		Processor();
 		Processor(int pc);
 		int getPC();
+		
 		pushStack1(uint8_t byte);
 		uint8_t popStack1();
+		emptyStack1();
+		
 		pushStack2(uint8_t byte);
 		uint8_t popStack2();
+		emptyStack2();
 	private:
 		stack<uint8_t>		stack1;
 		stack<uint8_t>		stack2;

@@ -16,6 +16,7 @@ Processor::Processor(int pc) {
 Processor::getPC() {
 	return pc;
 }
+
 Processor::pushStack1(uint8_t byte) {
 	stack1.push(byte);
 }
@@ -27,6 +28,11 @@ uint8_t Processor::popStack1() {
 	}
 	return 0; //should throw exception instead
 }
+Processor::emptyStack1() {
+	stack<uint8_t> empty;
+	swap(stack1, empty);
+}
+
 Processor::pushStack2(uint8_t byte) {
 	stack2.push(byte);
 }
@@ -37,6 +43,10 @@ uint8_t Processor::popStack2() {
 		return x;
 	}
 	return 0; //should throw exception instead
+}
+Processor::emptyStack2() {
+	stack<uint8_t> empty;
+	swap(stack2, empty);
 }
 
 void printByte(uint8_t byte) {
@@ -57,7 +67,10 @@ int main(int argc, char *argv[]) {
 	// printByte(processor.getPC());
 	// printIntAsByte(257);
 	
-	//processor.pushStack1(0b001);
+	processor.pushStack1(0b001);
+	processor.pushStack1(0b011);
+	printByte(processor.popStack1());
+	processor.emptyStack1();
 	printByte(processor.popStack1());
 	
 }

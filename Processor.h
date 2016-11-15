@@ -30,7 +30,10 @@ class Processor {
 		Processor();
 		Processor(int pc); //remove
 		int getPC();
-		void performOperation(uint8_t *seq);
+		void performOperation(uint8_t **seq);
+		
+		//Operations
+		void opNOP(uint8_t **seq);
 		
 		void pushStack1(uint8_t byte);
 		uint8_t popStack1();

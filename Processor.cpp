@@ -17,11 +17,28 @@ Processor::Processor(int pc) {
 Processor::getPC() {
 	return pc;
 }
-void Processor::performOperation(uint8_t *seq) {
-	printByte(seq[0]);
-	printByte(seq[1]);
-	printByte(seq[2]);
-	printByte(seq[3]);
+
+//Operations
+void Processor::performOperation(uint8_t **seq) {
+	uint8_t operation = *(*seq)++;
+	
+	switch (operation) {
+		case NOP:
+			this->opNOP(seq); break;
+		// case ADD:
+			// this->opADD(seq); break;
+		// case SUB:
+			// this->opSUB(seq); break;
+		default:
+			printf("default \n");
+	}
+	
+	
+}
+void Processor::opNOP(uint8_t **seq) {
+	seq += 3;
+	
+	printf("NOP \n");
 }
 
 void Processor::pushStack1(uint8_t byte) {
@@ -73,16 +90,25 @@ int main(int argc, char *argv[]) {
 	Processor processor;
 	
 	uint8_t *seq = new uint8_t[4];
+	
 	uint8_t *point;
 	point = seq;
-	*point = ADD;
+	*point = NOP;
 	point++;
 	*point = ADD;
 	point++;
-	*point = ADD;
+	*point = SUB;
 	point++;
-	*point = ADD;
+	*point = AND;
 	point++;
-	processor.performOperation(seq);
+	*point = OUT;
+	point++;
+	processor.performOperation(&seq);
+	printf("\n");
+	printByte(*seq++);
+	printByte(*seq++);
+	printByte(*seq++);
+	printByte(*seq++);
+	printByte(*seq++);
 
 }

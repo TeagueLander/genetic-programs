@@ -55,10 +55,10 @@ class Processor {
 		stack<uint8_t>	stack1;
 		stack<uint8_t>	stack2;
 		int				pc;
+		uint8_t			r0;
 		uint8_t			r1;
 		uint8_t			r2;
 		uint8_t			r3;
-		uint8_t			r4;
 };
 
 void printByte(uint8_t byte);

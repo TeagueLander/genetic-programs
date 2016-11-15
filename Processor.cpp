@@ -40,30 +40,30 @@ void Processor::opNOP(uint8_t *&seq) {
 void Processor::opADD(uint8_t *&seq) {
 	uint8_t data = *seq++;
 	printf("ADD \n");
-	//uint8_t val1 = getRegisterValue
+	uint8_t val1 = getRegisterValue()
 }
 uint8_t* Processor::getRegisterValue(uint8_t seq) {
-	if (seq == R1) {
+	if (seq == R0) {
+		return &r0;
+	}else if (seq == R1) {
 		return &r1;
 	}else if (seq == R2) {
 		return &r2;
 	}else if (seq == R3) {
 		return &r3;
-	}else if (seq == R4) {
-		return &r4;
 	}
 	printf("get invalid register \n");
 	return (uint8_t)0; //should be error
 }
 void Processor::setRegisterValue(uint8_t seq) {
-	if (seq == R1) {
+	if (seq == R0) {
+		r0 = seq;
+	}else if (seq == R1) {
 		r1 = seq;
 	}else if (seq == R2) {
 		r2 = seq;
 	}else if (seq == R3) {
 		r3 = seq;
-	}else if (seq == R4) {
-		r4 = seq;
 	}
 	printf("set invalid register \n"); //should give error
 }

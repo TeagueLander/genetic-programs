@@ -19,10 +19,10 @@ Processor::getPC() {
 }
 
 //Operations
-void Processor::performOperation(uint8_t **seq) {
-	uint8_t operation = *(*seq)++;
+void Processor::performOperation(uint8_t *&seq) {
+	uint8_t operation = *seq++;
 	
-	switch (operation) {
+	/*switch (operation) {
 		case NOP:
 			this->opNOP(seq); break;
 		// case ADD:
@@ -31,11 +31,11 @@ void Processor::performOperation(uint8_t **seq) {
 			// this->opSUB(seq); break;
 		default:
 			printf("default \n");
-	}
+	}*/
 	
 	
 }
-void Processor::opNOP(uint8_t **seq) {
+void Processor::opNOP(uint8_t *&seq) {
 	seq += 3;
 	
 	printf("NOP \n");
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 	point++;
 	*point = OUT;
 	point++;
-	processor.performOperation(&seq);
+	processor.performOperation(seq);
 	printf("\n");
 	printByte(*seq++);
 	printByte(*seq++);

@@ -24,7 +24,9 @@ using namespace std;
 #define POP2	(uint8_t)0b1011
 //Move
 #define MOV		(uint8_t)0b1100
-#define OUT		(uint8_t)0b1101
+#define SAV2	(uint8_t)0b1101
+#define SAV3	(uint8_t)0b1110
+#define OUT		(uint8_t)0b1111
 
 //Registers
 #define R0		(uint8_t)0b0000
@@ -53,6 +55,9 @@ class Processor {
 		void			opPUSH2(uint8_t *&seq);
 		void			opPOP1(uint8_t *&seq);
 		void			opPOP2(uint8_t *&seq);
+		void			opMOV(uint8_t *&seq);
+		void			opSAV2(uint8_t *&seq);
+		void			opSAV3(uint8_t *&seq);
 		
 		void			pushStack1(uint8_t byte);
 		uint8_t			popStack1();

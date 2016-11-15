@@ -128,7 +128,7 @@ void Processor::opPOP1(uint8_t *&seq) {
 	uint8_t data = *seq++;
 	uint8_t regL = getLeftBits(data);
 	
-	setRegisterValue(regL,popStack1(regL));
+	setRegisterValue(regL,popStack1());
 	
 	printf("POP1 \n");
 }
@@ -136,11 +136,37 @@ void Processor::opPOP2(uint8_t *&seq) {
 	uint8_t data = *seq++;
 	uint8_t regL = getLeftBits(data);
 	
-	setRegisterValue(regL,popStack2(regL));
+	setRegisterValue(regL,popStack2());
 	
 	printf("POP2 \n");
 }
-
+void Processor::opMOV(uint8_t *&seq) {
+	uint8_t data = *seq++;
+	uint8_t regL = getLeftBits(data);
+	uint8_t regR = getRightBits(data);
+	
+	uint8_t val1 = getRegisterValue(regR);
+	
+	setRegisterValue(regL, val1);
+	
+	printf("MOV \n");
+}
+void Processor::opSAV2(uint8_t *&seq) {
+	uint8_t data = *seq++;
+	uint8_t regL = R2;
+	
+	setRegisterValue(regL, data);
+	
+	printf("SAV2 \n");
+}
+void Processor::opSAV3(uint8_t *&seq) {
+	uint8_t data = *seq++;
+	uint8_t regL = R3;
+	
+	setRegisterValue(regL, data);
+	
+	printf("SAV3 \n");
+}
 
 uint8_t Processor::getRegisterValue(uint8_t reg) {
 	if (reg == R0) {
@@ -232,8 +258,8 @@ int main(int argc, char *argv[]) {
 	*point++ = SUB;
 	*point++ = AND;
 	*point++ = OUT;
-	printByte(*seq);
+	
 	processor.performOperation(seq);
-	printf("\n");
+	printByte(processor.getRegisterValue(R0));
 
 }

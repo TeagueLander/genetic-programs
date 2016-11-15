@@ -25,8 +25,28 @@ void Processor::performOperation(uint8_t *&seq) {
 	switch (operation) {
 		case ADD:
 			this->opADD(seq); break;
-		// case SUB:
-			// this->opSUB(seq); break;
+		case AND:
+			this->opAND(seq); break;
+		case OR:
+			this->opOR(seq); break;
+		case SHL:
+			this->opSHL(seq); break;
+		case SHR:
+			this->opSHR(seq); break;
+		case PUSH1:
+			this->opPUSH1(seq); break;
+		case PUSH2:
+			this->opPUSH2(seq); break;
+		case POP1:
+			this->opPOP1(seq); break;
+		case POP2:
+			this->opPOP2(seq); break;
+		case MOV:
+			this->opMOV(seq); break;
+		case SAV2:
+			this->opSAV2(seq); break;
+		case SAV3:
+			this->opSAV3(seq); break;
 		default:
 			this->opNOP(seq); break;
 	}
@@ -258,15 +278,9 @@ int main(int argc, char *argv[]) {
 	uint8_t *point;
 	point = seq;
 	*point++ = ADD;
-	*point++ = ADD;
-	*point++ = SUB;
-	*point++ = AND;
-	*point++ = OUT;
+	*point++ = joinHalfBytes(R0,R1);
 	
-	printByte(joinHalfBytes(R1,R1));
-	
-	//processor.performOperation(seq);
-	//processor.performOperation(seq);
+	processor.performOperation(seq);
 	printByte(processor.getRegisterValue(R0));
 	printByte(processor.getRegisterValue(R1));
 

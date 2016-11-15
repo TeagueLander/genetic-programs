@@ -79,3 +79,4 @@ void printByte(uint8_t byte);
 void printIntAsByte(int num);
 uint8_t getLeftBits(uint8_t seq);
 uint8_t getRightBits(uint8_t seq);
+uint8_t combHalfBytes(uint8_t half1, uint8_t half2);

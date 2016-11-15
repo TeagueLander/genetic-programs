@@ -243,13 +243,17 @@ uint8_t getLeftBits(uint8_t seq) {
 uint8_t getRightBits(uint8_t seq) {
 	return seq&0b1111;
 }
+uint8_t joinHalfBytes(uint8_t half1, uint8_t half2) {
+	return (half1<<4) + half2;
+}
 
 //For testing
 int main(int argc, char *argv[]) {
 	Processor processor;
+	processor.setRegisterValue(R0,(uint8_t)0b0001);
+	processor.setRegisterValue(R1,(uint8_t)0b11010001);
 	
 	uint8_t *seq = new uint8_t[4];
-	//seq[0] = (uint8_t)0b
 	
 	uint8_t *point;
 	point = seq;
@@ -259,7 +263,11 @@ int main(int argc, char *argv[]) {
 	*point++ = AND;
 	*point++ = OUT;
 	
-	processor.performOperation(seq);
+	printByte(joinHalfBytes(R1,R1));
+	
+	//processor.performOperation(seq);
+	//processor.performOperation(seq);
 	printByte(processor.getRegisterValue(R0));
+	printByte(processor.getRegisterValue(R1));
 
 }

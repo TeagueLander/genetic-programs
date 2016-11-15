@@ -27,10 +27,10 @@ using namespace std;
 #define OUT		(uint8_t)0b1101
 
 //Registers
+#define R0		(uint8_t)0b0000
 #define R1		(uint8_t)0b0001
 #define R2		(uint8_t)0b0010
 #define R3		(uint8_t)0b0011
-#define R4		(uint8_t)0b0100
 
 class Processor {
 	public:
@@ -38,12 +38,21 @@ class Processor {
 		//Processor(int pc); //remove
 		int				getPC();
 		void			performOperation(uint8_t *&seq);
-		uint8_t*		getRegisterValue(uint8_t seq);
-		void			setRegisterValue(uint8_t seq);
+		uint8_t			getRegisterValue(uint8_t reg);
+		void			setRegisterValue(uint8_t reg, uint8_t seq);
 		
 		//Operations
 		void			opNOP(uint8_t *&seq);
 		void			opADD(uint8_t *&seq);
+		void			opSUB(uint8_t *&seq);
+		void			opAND(uint8_t *&seq);
+		void			opOR(uint8_t *&seq);
+		void			opSHL(uint8_t *&seq);
+		void			opSHR(uint8_t *&seq);
+		void			opPUSH1(uint8_t *&seq);
+		void			opPUSH2(uint8_t *&seq);
+		void			opPOP1(uint8_t *&seq);
+		void			opPOP2(uint8_t *&seq);
 		
 		void			pushStack1(uint8_t byte);
 		uint8_t			popStack1();

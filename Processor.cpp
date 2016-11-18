@@ -14,8 +14,26 @@ Processor::Processor() {
 /* Processor::Processor(int pc) {
 	this->pc = pc;
 } */
-Processor::getPC() {
+int Processor::getPC() {
 	return pc;
+}
+void Processor::loadOperations(uint8_t *data, int len) {
+	operations = new uint8_t[len];
+	operationLen = len;
+	
+	for (int i = 0; i < len; i++) {
+		operations[i] = data[i];
+		//printByte(operations[i]);
+	}
+}
+void Processor::runOperations() {
+	uint8_t *pointer = operations;
+	int counter = 0;
+	
+	while (counter < operationLen) {
+		performOperation(pointer);
+		counter += 2;
+	}
 }
 
 //Operations
@@ -27,6 +45,8 @@ void Processor::performOperation(uint8_t *&seq) {
 			this->opADD(seq); break;
 		case AND:
 			this->opAND(seq); break;
+		case SUB:
+			this->opSUB(seq); break;
 		case OR:
 			this->opOR(seq); break;
 		case SHL:
@@ -47,6 +67,8 @@ void Processor::performOperation(uint8_t *&seq) {
 			this->opSAV2(seq); break;
 		case SAV3:
 			this->opSAV3(seq); break;
+		case OUT:
+			this->opOUT(seq); break;
 		default:
 			this->opNOP(seq); break;
 	}
@@ -130,7 +152,7 @@ void Processor::opPUSH1(uint8_t *&seq) {
 	
 	uint8_t val0 = getRegisterValue(regL);
 	
-	pushStack1(regL);
+	pushStack1(val0);
 	
 	printf("PUSH1 \n");
 }
@@ -140,7 +162,7 @@ void Processor::opPUSH2(uint8_t *&seq) {
 	
 	uint8_t val0 = getRegisterValue(regL);
 	
-	pushStack2(regL);
+	pushStack2(val0);
 	
 	printf("PUSH2 \n");
 }
@@ -186,6 +208,15 @@ void Processor::opSAV3(uint8_t *&seq) {
 	setRegisterValue(regL, data);
 	
 	printf("SAV3 \n");
+}
+void Processor::opOUT(uint8_t *&seq) {
+	uint8_t data = *seq++;
+	uint8_t regL = getLeftBits(data);
+	
+	uint8_t regValue = getRegisterValue(regL);
+	
+	printf("OUT: ");
+	printByte(regValue);
 }
 
 uint8_t Processor::getRegisterValue(uint8_t reg) {
@@ -268,6 +299,7 @@ uint8_t joinHalfBytes(uint8_t half1, uint8_t half2) {
 }
 
 //For testing
+/*
 int main(int argc, char *argv[]) {
 	Processor processor;
 	processor.setRegisterValue(R0,(uint8_t)0b0001);
@@ -279,9 +311,18 @@ int main(int argc, char *argv[]) {
 	point = seq;
 	*point++ = ADD;
 	*point++ = joinHalfBytes(R0,R1);
+	*point++ = SUB;
+	*point++ = joinHalfBytes(R0,R1);
+	
+	processor.performOperation(seq);
+	printByte(processor.getRegisterValue(R0));
+	printByte(processor.getRegisterValue(R1));
+	
+	printf("\n");
 	
 	processor.performOperation(seq);
 	printByte(processor.getRegisterValue(R0));
 	printByte(processor.getRegisterValue(R1));
 
 }
+*/

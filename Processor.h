@@ -38,6 +38,21 @@ class Processor {
 	public:
 		Processor();
 		//Processor(int pc); //remove
+		void			loadOperations(uint8_t *data, int len);
+		void			runOperations();
+		
+	private:
+		stack<uint8_t>	stack1;
+		stack<uint8_t>	stack2;
+		int				pc;
+		uint8_t			r0;
+		uint8_t			r1;
+		uint8_t			r2;
+		uint8_t			r3;
+		
+		uint8_t			*operations;
+		uint8_t			operationLen;
+		
 		int				getPC();
 		void			performOperation(uint8_t *&seq);
 		uint8_t			getRegisterValue(uint8_t reg);
@@ -58,6 +73,7 @@ class Processor {
 		void			opMOV(uint8_t *&seq);
 		void			opSAV2(uint8_t *&seq);
 		void			opSAV3(uint8_t *&seq);
+		void			opOUT(uint8_t *&seq);
 		
 		void			pushStack1(uint8_t byte);
 		uint8_t			popStack1();
@@ -65,14 +81,6 @@ class Processor {
 		void			pushStack2(uint8_t byte);
 		uint8_t			popStack2();
 		void 			emptyStack2();
-	private:
-		stack<uint8_t>	stack1;
-		stack<uint8_t>	stack2;
-		int				pc;
-		uint8_t			r0;
-		uint8_t			r1;
-		uint8_t			r2;
-		uint8_t			r3;
 };
 
 void printByte(uint8_t byte);

@@ -89,7 +89,7 @@ void Processor::performOperation(uint8_t *&seq) {
 }
 void Processor::opNOP(uint8_t *&seq) {
 	uint8_t data = *seq++;
-	printf("NOP \n");
+	printf("NOP\n");
 }
 void Processor::opADD(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -101,7 +101,7 @@ void Processor::opADD(uint8_t *&seq) {
 	
 	setRegisterValue(regL, val0 + val1);
 	
-	printf("ADD \n");
+	printf("ADD\n");
 }
 void Processor::opSUB(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -113,7 +113,7 @@ void Processor::opSUB(uint8_t *&seq) {
 	
 	setRegisterValue(regL, val0 - val1);
 	
-	printf("SUB \n");
+	printf("SUB\n");
 }
 void Processor::opAND(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -125,7 +125,7 @@ void Processor::opAND(uint8_t *&seq) {
 	
 	setRegisterValue(regL, val0&val1);
 	
-	printf("AND \n");
+	printf("AND\n");
 }
 void Processor::opOR(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -137,7 +137,7 @@ void Processor::opOR(uint8_t *&seq) {
 	
 	setRegisterValue(regL, val0^val1);
 	
-	printf("OR \n");
+	printf("OR\n");
 }
 void Processor::opSHL(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -147,7 +147,7 @@ void Processor::opSHL(uint8_t *&seq) {
 	
 	setRegisterValue(regL, val0<<1);
 	
-	printf("SHL \n");
+	printf("SHL\n");
 }
 void Processor::opSHR(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -157,7 +157,7 @@ void Processor::opSHR(uint8_t *&seq) {
 	
 	setRegisterValue(regL, val0>>1);
 	
-	printf("SHL \n");
+	printf("SHL\n");
 }
 void Processor::opPUSH1(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -167,7 +167,7 @@ void Processor::opPUSH1(uint8_t *&seq) {
 	
 	pushStack1(val0);
 	
-	printf("PUSH1 \n");
+	printf("PUSH1\n");
 }
 void Processor::opPUSH2(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -177,7 +177,7 @@ void Processor::opPUSH2(uint8_t *&seq) {
 	
 	pushStack2(val0);
 	
-	printf("PUSH2 \n");
+	printf("PUSH2\n");
 }
 void Processor::opPOP1(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -185,7 +185,7 @@ void Processor::opPOP1(uint8_t *&seq) {
 	
 	setRegisterValue(regL,popStack1());
 	
-	printf("POP1 \n");
+	printf("POP1\n");
 }
 void Processor::opPOP2(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -193,7 +193,7 @@ void Processor::opPOP2(uint8_t *&seq) {
 	
 	setRegisterValue(regL,popStack2());
 	
-	printf("POP2 \n");
+	printf("POP2\n");
 }
 void Processor::opMOV(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -204,7 +204,7 @@ void Processor::opMOV(uint8_t *&seq) {
 	
 	setRegisterValue(regL, val1);
 	
-	printf("MOV \n");
+	printf("MOV\n");
 }
 void Processor::opSAV2(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -212,7 +212,7 @@ void Processor::opSAV2(uint8_t *&seq) {
 	
 	setRegisterValue(regL, data);
 	
-	printf("SAV2 \n");
+	printf("SAV2\n");
 }
 void Processor::opSAV3(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -220,7 +220,7 @@ void Processor::opSAV3(uint8_t *&seq) {
 	
 	setRegisterValue(regL, data);
 	
-	printf("SAV3 \n");
+	printf("SAV3\n");
 }
 void Processor::opOUT(uint8_t *&seq) {
 	uint8_t data = *seq++;
@@ -228,8 +228,8 @@ void Processor::opOUT(uint8_t *&seq) {
 	
 	uint8_t regValue = getRegisterValue(regL);
 	
-	printf("OUT: ");
-	printByte(regValue);
+	printf("OUT\n");
+	//printByte(regValue);
 }
 
 uint8_t Processor::getRegisterValue(uint8_t reg) {
@@ -242,7 +242,7 @@ uint8_t Processor::getRegisterValue(uint8_t reg) {
 	}else if (reg == R3) {
 		return r3;
 	}
-	//printf("get invalid register \n");
+	//printf("get invalid register\n");
 	return (uint8_t)0; //should be error
 }
 void Processor::setRegisterValue(uint8_t reg, uint8_t seq) {
@@ -255,7 +255,7 @@ void Processor::setRegisterValue(uint8_t reg, uint8_t seq) {
 	}else if (reg == R3) {
 		r3 = seq;
 	}else {
-		//printf("set invalid register \n"); //should give error
+		//printf("set invalid register\n"); //should give error
 	}
 }
 
@@ -293,6 +293,11 @@ void Processor::emptyStack2() {
 void printByte(uint8_t byte) {
 	bitset<8> x(byte);
 	cout << x << endl;
+}
+void printBytes(uint8_t *byte, int len) {
+	for (int i = 0; i < len; i++) {
+		printByte(byte[i]);
+	}
 }
 void printIntAsByte(int num) {
 	bitset<8> a(num>>24);

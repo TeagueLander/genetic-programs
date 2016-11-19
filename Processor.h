@@ -87,6 +87,7 @@ class Processor {
 };
 
 void printByte(uint8_t byte);
+void printBytes(uint8_t *byte, int len);
 void printIntAsByte(int num);
 uint8_t getLeftBits(uint8_t seq);
 uint8_t getRightBits(uint8_t seq);

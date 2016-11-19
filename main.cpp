@@ -14,7 +14,7 @@ using namespace std;
 
 
 //Set how long you want the length of the data to be
-#define DATA_LEN 100000
+#define DATA_LEN 10000
 
 int main(int argc, char *argv[]) {
 	
@@ -41,4 +41,12 @@ int main(int argc, char *argv[]) {
 	//cpu.getOutput(next);
 	printf("done operations\n");
 	
+	
+	ofstream myfile;
+	myfile.open("example.txt");
+	myfile << "Writing this to a file.\n";
+	myfile.close();
+	
+	
+	return 0;
 }

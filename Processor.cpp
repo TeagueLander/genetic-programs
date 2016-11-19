@@ -8,7 +8,7 @@
 
 //Processor
 Processor::Processor() {
-	pc = 0;
+	clearRegisters();
 }
 //remove this
 /* Processor::Processor(int pc) {
@@ -26,6 +26,11 @@ void Processor::loadOperations(uint8_t *data, int len) {
 		//printByte(operations[i]);
 	}
 }
+void Processor::loadInput(uint8_t *data) {
+	pushStack1(data[2]);
+	pushStack1(data[1]);
+	pushStack1(data[0]);
+}
 void Processor::runOperations() {
 	uint8_t *pointer = operations;
 	int counter = 0;
@@ -35,10 +40,17 @@ void Processor::runOperations() {
 		counter += 2;
 	}
 }
+void Processor::clearRegisters() {
+	pc = 0;
+	r0 = 0;
+	r1 = 0;
+	r2 = 0;
+	r3 = 0;
+}
 
 //Operations
 void Processor::performOperation(uint8_t *&seq) {
-	uint8_t operation = *seq++;
+	uint8_t operation = getLeftBits(*seq++);
 	
 	switch (operation) {
 		case ADD:
@@ -255,7 +267,7 @@ uint8_t Processor::popStack1() {
 		stack1.pop();
 		return x;
 	}
-	return 0; //should throw exception instead
+	return (uint8_t)0; //should throw exception instead
 }
 void Processor::emptyStack1() {
 	stack<uint8_t> empty;
@@ -265,12 +277,12 @@ void Processor::pushStack2(uint8_t byte) {
 	stack2.push(byte);
 }
 uint8_t Processor::popStack2() {
-	if (stack1.size() > 0) {
+	if (stack2.size() > 0) {
 		uint8_t x = stack2.top();
 		stack2.pop();
 		return x;
 	}
-	return 0; //should throw exception instead
+	return (uint8_t)0; //should throw exception instead
 }
 void Processor::emptyStack2() {
 	stack<uint8_t> empty;

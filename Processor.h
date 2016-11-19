@@ -39,7 +39,9 @@ class Processor {
 		Processor();
 		//Processor(int pc); //remove
 		void			loadOperations(uint8_t *data, int len);
+		void			loadInput(uint8_t *data);
 		void			runOperations();
+		void			clearRegisters();
 		
 	private:
 		stack<uint8_t>	stack1;

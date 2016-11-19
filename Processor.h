@@ -42,6 +42,7 @@ class Processor {
 		void			loadInput(uint8_t *data);
 		void			runOperations();
 		void			clearRegisters();
+		void			getOutput(uint8_t *&data);
 		
 	private:
 		stack<uint8_t>	stack1;
@@ -53,7 +54,7 @@ class Processor {
 		uint8_t			r3;
 		
 		uint8_t			*operations;
-		uint8_t			operationLen;
+		int				operationLen;
 		
 		int				getPC();
 		void			performOperation(uint8_t *&seq);

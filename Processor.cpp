@@ -18,13 +18,8 @@ int Processor::getPC() {
 	return pc;
 }
 void Processor::loadOperations(uint8_t *data, int len) {
-	operations = new uint8_t[len];
+	operations = data;
 	operationLen = len;
-	
-	for (int i = 0; i < len; i++) {
-		operations[i] = data[i];
-		//printByte(operations[i]);
-	}
 }
 void Processor::loadInput(uint8_t *data) {
 	pushStack1(data[2]);
@@ -36,6 +31,7 @@ void Processor::runOperations() {
 	int counter = 0;
 	
 	while (counter < operationLen) {
+		//printf("Counter: %d     OperationLen: %d\n",counter, operationLen);
 		performOperation(pointer);
 		counter += 2;
 	}
@@ -46,6 +42,11 @@ void Processor::clearRegisters() {
 	r1 = 0;
 	r2 = 0;
 	r3 = 0;
+}
+void Processor::getOutput(uint8_t *&data) {
+	data[0] = popStack2();
+	data[1] = popStack2();
+	data[2] = popStack2();
 }
 
 //Operations
@@ -241,7 +242,7 @@ uint8_t Processor::getRegisterValue(uint8_t reg) {
 	}else if (reg == R3) {
 		return r3;
 	}
-	printf("get invalid register \n");
+	//printf("get invalid register \n");
 	return (uint8_t)0; //should be error
 }
 void Processor::setRegisterValue(uint8_t reg, uint8_t seq) {
@@ -254,7 +255,7 @@ void Processor::setRegisterValue(uint8_t reg, uint8_t seq) {
 	}else if (reg == R3) {
 		r3 = seq;
 	}else {
-		printf("set invalid register \n"); //should give error
+		//printf("set invalid register \n"); //should give error
 	}
 }
 
